@@ -172,15 +172,21 @@ namespace Prueba_Trabajo
 		public static void CrearPaciente(ArrayList listaPacientes, ArrayList obraSociales){
 			
 			try{
+				
 				Console.WriteLine("\n-Ingrese nombre del paciente:\n");
+				
 				string nombre = Console.ReadLine().ToUpper();
 				//El metodo Match corrobora si el nombre ingresado respeta el patron establecido en la regex
 				//Luego indicamos que nos devuelva un booleano con Success
-				if(!Regex.Match(nombre, @"^([a-zA-Z]{2,}\s?[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)").Success){ 
+				
+				if(!Regex.Match(nombre, @"^([a-zA-Z]{2,}\s?[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)").Success){
 					throw new NombreInvalidoException();
 				}
+				
 				Console.WriteLine("\n-Ingrese dni del paciente:\n");
+				
 				int dni = int.Parse(Console.ReadLine());
+				
 				foreach (Paciente paciente in listaPacientes) {
 					
 					if (dni == paciente.Dni) {
@@ -190,31 +196,37 @@ namespace Prueba_Trabajo
 				}
 				
 				Console.WriteLine("\n-Tiene obra social?:	      (Ingrese si/no)\n");
+				
 				string condicion = Console.ReadLine().ToUpper();
+				
 				if (condicion == "SI") {
-				Console.WriteLine("\n-Ingrese la obra social del paciente:\n");
-				string obra_social = Console.ReadLine().ToUpper();
-				Console.WriteLine("\n-Ingrese el numero de afiliado del paciente:\n");
-				long nro_afiliado = long.Parse(Console.ReadLine());
-				Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
-				string diagnostico = Console.ReadLine().ToUpper();
-				Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado, diagnostico);
-				listaPacientes.Add(paciente);										//Agregar paciente a la lista de pacientes
-				if (!(obraSociales.Contains(paciente.Obra_social))) {				//Agregar obra social del paciente a la lista
-					obraSociales.Add(paciente.Obra_social);
-				}
+				
+					Console.WriteLine("\n-Ingrese la obra social del paciente:\n");
+					string obra_social = Console.ReadLine().ToUpper();
+					Console.WriteLine("\n-Ingrese el numero de afiliado del paciente:\n");
+					long nro_afiliado = long.Parse(Console.ReadLine());
+					Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
+					string diagnostico = Console.ReadLine().ToUpper();
+					
+					Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado, diagnostico);
+					listaPacientes.Add(paciente);										//Agregar paciente a la lista de pacientes
+					
+					if (!(obraSociales.Contains(paciente.Obra_social))) {				//Agregar obra social del paciente a la lista
+						
+						obraSociales.Add(paciente.Obra_social);
+					}
+					
 				Console.WriteLine("\n***************¡Paciente agregado con exito!****************\n");		
 			}
-				
-			else{
-				string obra_social = "NO TIENE/PARTICULAR";
-				int nro_afiliado = 00;
-				Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
-				string diagnostico = Console.ReadLine().ToUpper();
-				Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado,diagnostico);
-			    listaPacientes.Add(paciente);										//Agregar paciente a la lista de pacientes
+				else{
+					string obra_social = "NO TIENE/PARTICULAR";
+					int nro_afiliado = 00;
+					Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
+					string diagnostico = Console.ReadLine().ToUpper();
+					Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado,diagnostico);
+			    	listaPacientes.Add(paciente);										//Agregar paciente a la lista de pacientes
 
-			    Console.WriteLine("\n***************¡Paciente agregado con exito!****************\n");
+			    	Console.WriteLine("\n***************¡Paciente agregado con exito!****************\n");
 			
 			}
 			}catch(FormatException){

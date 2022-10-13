@@ -176,7 +176,7 @@ namespace Prueba_Trabajo
 				string nombre = Console.ReadLine().ToUpper();
 				//El metodo Match corrobora si el nombre ingresado respeta el patron establecido en la regex
 				//Luego indicamos que nos devuelva un booleano con Success
-				if(!Regex.Match(nombre, @"^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)").Success){ 
+				if(!Regex.Match(nombre, @"^([a-zA-Z]{2,}\s?[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)").Success){ 
 					throw new NombreInvalidoException();
 				}
 				Console.WriteLine("\n-Ingrese dni del paciente:\n");
@@ -195,7 +195,7 @@ namespace Prueba_Trabajo
 				Console.WriteLine("\n-Ingrese la obra social del paciente:\n");
 				string obra_social = Console.ReadLine().ToUpper();
 				Console.WriteLine("\n-Ingrese el numero de afiliado del paciente:\n");
-				int nro_afiliado = int.Parse(Console.ReadLine());
+				long nro_afiliado = long.Parse(Console.ReadLine());
 				Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
 				string diagnostico = Console.ReadLine().ToUpper();
 				Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado, diagnostico);

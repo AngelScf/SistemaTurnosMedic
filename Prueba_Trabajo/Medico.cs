@@ -14,7 +14,6 @@ namespace Prueba_Trabajo
 		{
 			this.oficio = oficio;
 			this.matricula = matricula;
-			
 		}
 		
 		

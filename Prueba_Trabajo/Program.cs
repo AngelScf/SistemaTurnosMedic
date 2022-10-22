@@ -205,17 +205,18 @@ namespace Prueba_Trabajo
 			
 			
 			try{
-				ArrayList listaPacientes = medico.verTodosPacientes();
-				ArrayList obrasSociales = medico.verObrasSociales();
-				
 				Console.WriteLine("\n-Ingrese nombre del paciente:\n");
+				
 				string nombre = Console.ReadLine().ToUpper();
 				//El metodo Match corrobora si el nombre ingresado respeta el patron establecido en la regex
 				//Luego indicamos que nos devuelva un booleano con Success
-				if(!Regex.Match(nombre, @"^([a-zA-Z]{2,}\s?[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)").Success){ 
+				
+				if(!Regex.Match(nombre, @"^([a-zA-Z]{2,}\s?[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)").Success){
 					throw new NombreInvalidoException();
 				}
+				
 				Console.WriteLine("\n-Ingrese dni del paciente:\n");
+				
 				int dni = int.Parse(Console.ReadLine());
 				
 				foreach (Paciente paciente in listaPacientes) {
@@ -227,7 +228,9 @@ namespace Prueba_Trabajo
 				}
 				
 				Console.WriteLine("\n-Tiene obra social?:	      (Ingrese si/no)\n");
+				
 				string condicion = Console.ReadLine().ToUpper();
+				
 				if (condicion == "SI") {
 				Console.WriteLine("\n-Ingrese la obra social del paciente:\n");
 				string obra_social = Console.ReadLine().ToUpper();
@@ -250,8 +253,7 @@ namespace Prueba_Trabajo
 				string diagnostico = Console.ReadLine().ToUpper();
 				Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado,diagnostico);
 			    medico.agregarPaciente(paciente);									//Agregar paciente a la lista de pacientes
-
-			    Console.WriteLine("\n***************¡Paciente agregado con exito!****************\n");
+			    	Console.WriteLine("\n***************¡Paciente agregado con exito!****************\n");
 			
 			}
 			}catch(FormatException){

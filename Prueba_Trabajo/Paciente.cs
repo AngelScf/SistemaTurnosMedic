@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;  
+using System.Linq;  
+using System.Text;  
+using System.Text.RegularExpressions;  
 
 namespace Prueba_Trabajo
 {
@@ -23,23 +28,23 @@ namespace Prueba_Trabajo
 		
 		public string Obra_social
 		{
-			set{obra_social = value;}
 			get{return obra_social;}
 			
 		}
 		public long Nro_afiliado
 		{
-			set{nro_afiliado = value;}
 			get{return nro_afiliado;}
 		
 		}
 		public string Diagnostico
 		{
-			set{diagnostico = value;}
 			get{return diagnostico;}
 			
 		}
 	}
+	
+	public void validarNombre(string nombre){
+		
 			
 	}
 

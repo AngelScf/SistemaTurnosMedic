@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace Prueba_Trabajo
 {
 	/// <summary>
-	/// Description of Paciente.
+	/// La clase paciente contiene los atributos para i
 	/// </summary>
 	public class Paciente : Persona
 	{
@@ -38,13 +38,11 @@ namespace Prueba_Trabajo
 		}
 		public string Diagnostico
 		{
+			set{this.diagnostico = value;}
 			get{return diagnostico;}
 			
 		}
+		
 	}
 	
-	public void validarNombre(string nombre){
-		
-			
-	}
-
+}

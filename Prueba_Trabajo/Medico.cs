@@ -52,7 +52,13 @@ namespace Prueba_Trabajo
 			return obrasSociales;
 		}
 		
+		public void eliminarObraSocial(string obraSocial){
 		
+			if(obrasSociales.Contains(obraSocial)){
+				obrasSociales.Remove(obraSocial);
+			}
+		}
+			
 		public ArrayList verTurnosDisponibles(){
 			return turnosDisponibles;
 		}
@@ -67,7 +73,6 @@ namespace Prueba_Trabajo
 			turnosDisponibles.Add(horario);
 			turnosOcupados.Remove(turno);
 		}
-		
 		
 		public ArrayList verTurnosOcupados(){
 			return turnosOcupados;

@@ -16,4 +16,7 @@ namespace Prueba_Trabajo
 	public class DniInvalidoException : Exception{
 		
 	}
+	public class ObraSocialInvalidaException : Exception{
+		
+	}
 }

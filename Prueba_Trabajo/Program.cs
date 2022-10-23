@@ -17,14 +17,22 @@ namespace Prueba_Trabajo
 			Console.WriteLine("************************************************************" +
 			                 "\n*********BIENVENIDO AL SISTEMA DE GESTION DE TURNOS*********" + 
 			                "\n************************************************************");
-			Menu();
+			System();
 			Console.WriteLine("\nGRACIAS POR ESTAR EN EL SISTEMA, VUELVA PRONTO!." +
 			                  "\n------------------------------------------------------------");
 			Console.ReadKey(true);
 		}
 	
-		public static void Menu(){
+		public static void System(){
 			
+			Medico medic;
+			medic = new Medico();
+			
+			Menu(medic);
+			
+		}
+			
+		public static void Menu(Medico medic){
 			
 			MostrarOpciones();
 			
@@ -32,21 +40,18 @@ namespace Prueba_Trabajo
 				//El menu de opciones esta dentro de un try para atrapar cualquier excepcion que pueda incurrir, en este caso la unica
 				//excepcion posible es en caso de que una opcion sea invalida
 				
-				Medico medic;
-				medic = new Medico();
-				
 				int opcion = int.Parse(Console.ReadLine());
 				
-				while (opcion != 0) {
+				while (opcion != 0) { //salir
 				
-				if (opcion == 1) {
+				if (opcion == 1) { //ver todos los pacientes
 					
 					VerTodosPacientes(medic);
 					MostrarOpciones();
 			
 					opcion = int.Parse(Console.ReadLine());
 				}
-				else if (opcion == 2) {
+				else if (opcion == 2) { //ingresar paciente
 					
 					
 					CrearPaciente(medic);
@@ -54,7 +59,7 @@ namespace Prueba_Trabajo
 					opcion = int.Parse(Console.ReadLine());
 					}
 					
-				else if (opcion == 3) {
+				else if (opcion == 3) { //Borrar un paciente
 					
 					if (medic.verTodosPacientes().Count > 0) {
 					    BorrarPaciente(medic);
@@ -66,7 +71,7 @@ namespace Prueba_Trabajo
 				    opcion = int.Parse(Console.ReadLine());
 				}	
 					
-				else if (opcion == 4) {
+				else if (opcion == 4) { //Ver un paciente en especifico
 					if (medic.verTodosPacientes().Count > 0) { //La lista de pacientes debe ser mayor a 0 para buscar un paciente
 					    VerPaciente(medic);
 					}
@@ -77,7 +82,7 @@ namespace Prueba_Trabajo
 					opcion = int.Parse(Console.ReadLine());
 				}
 
-				else if (opcion == 5) {
+				else if (opcion == 5) { //Actualizar diagnostico de un paciente
 					
 					if (medic.verTodosPacientes().Count > 0) {
 					    ActualizarDiagnostico(medic);
@@ -90,7 +95,7 @@ namespace Prueba_Trabajo
 					
 				}		
 				
-				else if (opcion == 6) {
+				else if (opcion == 6) { //Ver turnos disponibles
 					
 					TurnoDisponible(medic);
 					MostrarOpciones();
@@ -98,12 +103,13 @@ namespace Prueba_Trabajo
 					
 				}					
 				
-				else if (opcion == 7) {
+				else if (opcion == 7) { //Agregar turnos
 					
-					
-						if (medic.verTodosPacientes().Count > 0) {
+						if (medic.verTodosPacientes().Count > 0) { //Comprobamos que existan pacientes en el sistema
+							
 							Console.WriteLine("\nEl paciente se encuentra en el sistema? Ingrese si/no: \n");
 							string dato = Console.ReadLine().ToUpper();
+							
 							if (dato =="SI" ) {
 								Console.WriteLine("\nIngrese el horario en el que desea el turno.\n");
 								string hora = Console.ReadLine();
@@ -124,7 +130,7 @@ namespace Prueba_Trabajo
 						opcion = int.Parse(Console.ReadLine());
 				}
 					
-				else if (opcion == 8) {
+				else if (opcion == 8) { //Eliminar turnos
 					
 					if (medic.verTurnosOcupados().Count > 0) {
 						Console.WriteLine("\nIngrese el horario del turno a eliminar: \n");
@@ -139,13 +145,13 @@ namespace Prueba_Trabajo
 					
 				}	
 				
-				else if (opcion == 9) {
+				else if (opcion == 9) { //Ver turnos ocupados
 					VerTurnosOcupados(medic);
 					MostrarOpciones();
 					opcion = int.Parse(Console.ReadLine());
 				}
 					
-				else if (opcion == 10) {
+				else if (opcion == 10) { //Ver listas de obras sociales
 					VerObrasSociales(medic);
 					MostrarOpciones();
 					opcion = int.Parse(Console.ReadLine());
@@ -159,12 +165,14 @@ namespace Prueba_Trabajo
 			}
 				
 			}catch(Exception){
-				Console.WriteLine("\nLa opcion ingresada no es valida, por favor intente nuevamente: ");
-				Menu();
+				Console.WriteLine("\nEl valor ingresado no es valido, por favor intente nuevamente: ");
+				Menu(medic);
 			}
+			
 		}
 		
-			public static Paciente BuscarPaciente(Medico medico){   //Funcion auxiliar que se usa en varias ocaciones
+		private static Paciente BuscarPaciente(Medico medico){   //Funcion auxiliar que se usa en varias ocaciones
+			
 			ArrayList listaPacientes = medico.verTodosPacientes();
 			
 			Console.WriteLine("\nIngrese dni del paciente:\n");
@@ -182,13 +190,13 @@ namespace Prueba_Trabajo
 		
 		}
 
-		
 		public static void VerTodosPacientes(Medico medico){				//Ver todos los pacientes
 		
 			ArrayList listaPacientes;
 			listaPacientes = medico.verTodosPacientes();
 			
 			if (listaPacientes.Count > 0) {
+				
 				foreach (Paciente x  in listaPacientes ) {
 					
 				Console.WriteLine("\nNombre: "+ x.Nombre + "\nDni: "+ x.Dni + "\nObra Social: "+ x.Obra_social +
@@ -205,13 +213,16 @@ namespace Prueba_Trabajo
 			
 			
 			try{
+				ArrayList listaPacientes = medico.verTodosPacientes();
+                ArrayList obrasSociales = medico.verObrasSociales();
+				
 				Console.WriteLine("\n-Ingrese nombre del paciente:\n");
 				
 				string nombre = Console.ReadLine().ToUpper();
 				//El metodo Match corrobora si el nombre ingresado respeta el patron establecido en la regex
 				//Luego indicamos que nos devuelva un booleano con Success
 				
-				if(!Regex.Match(nombre, @"^([a-zA-Z]{2,}\s?[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)").Success){
+				if(!Regex.Match(nombre, @"^([a-zA-Z]{0,}\s?[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)").Success){
 					throw new NombreInvalidoException();
 				}
 				
@@ -232,35 +243,45 @@ namespace Prueba_Trabajo
 				string condicion = Console.ReadLine().ToUpper();
 				
 				if (condicion == "SI") {
-				Console.WriteLine("\n-Ingrese la obra social del paciente:\n");
-				string obra_social = Console.ReadLine().ToUpper();
-				Console.WriteLine("\n-Ingrese el numero de afiliado del paciente:\n");
-				long nro_afiliado = long.Parse(Console.ReadLine());
-				Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
-				string diagnostico = Console.ReadLine().ToUpper();
-				Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado, diagnostico);
-				medico.agregarPaciente(paciente);									//Agregar paciente a la lista de pacientes
+					Console.WriteLine("\n-Ingrese la obra social del paciente:\n");
+					string obra_social = Console.ReadLine().ToUpper();
+					Console.WriteLine("\n-Ingrese el numero de afiliado del paciente:\n");
+					long nro_afiliado = long.Parse(Console.ReadLine());
+					Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
+					string diagnostico = Console.ReadLine().ToUpper();
+					Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado, diagnostico);
+					medico.agregarPaciente(paciente);
+
+																					//Agregar paciente a la lista de pacientes
 				if (!(obrasSociales.Contains(paciente.Obra_social))) {				//Agregar obra social del paciente a la lista
 					medico.agregarObraSocial(paciente.Obra_social);
 				}
 				Console.WriteLine("\n***************¡Paciente agregado con exito!****************\n");		
 			}
 				
-			else{
-				string obra_social = "NO TIENE/PARTICULAR";
-				int nro_afiliado = 00;
-				Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
-				string diagnostico = Console.ReadLine().ToUpper();
-				Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado,diagnostico);
-			    medico.agregarPaciente(paciente);									//Agregar paciente a la lista de pacientes
-			    	Console.WriteLine("\n***************¡Paciente agregado con exito!****************\n");
+				else if(condicion == "NO"){
+					string obra_social = "NO TIENE/PARTICULAR";
+					int nro_afiliado = 00;
+					Console.WriteLine("\n-Ingrese el diagnostico del paciente:\n");
+					string diagnostico = Console.ReadLine().ToUpper();
+					Paciente paciente = new Paciente(nombre, dni, obra_social, nro_afiliado,diagnostico);
+				    medico.agregarPaciente(paciente);									//Agregar paciente a la lista de pacientes
+				    	Console.WriteLine("\n***************¡Paciente agregado con exito!****************\n");
 			
-			}
+				}
+				else{
+					throw new ObraSocialInvalidaException();
+				}
 			}catch(FormatException){
 				Console.WriteLine("\nFormato de dato ingresado no valido");
 				CrearPaciente(medico);
 			}catch(NombreInvalidoException){
 				Console.WriteLine("\nEl nombre ingresado no es valido, por favor intente nuevamente.");
+				CrearPaciente(medico);
+			}catch(ObraSocialInvalidaException){
+				Console.WriteLine("\nNo se ha declarado si el paciente tiene obra social correctamente\nPor favor ingrese (SI o NO) antes de " +
+				                  "ingresar el nombre de la obra social.");
+				CrearPaciente(medico);
 			}
 			
 			
@@ -303,7 +324,7 @@ namespace Prueba_Trabajo
 				Console.WriteLine("\nIngrese el nuevo Diagnostico de " + x.Nombre + ": \n");
 				string diagnostico = Console.ReadLine().ToUpper();
 				medico.actualizarPaciente(x, diagnostico);
-				Console.WriteLine("\n************¡Diagnostico actualizado con exito!*************\n");
+				Console.WriteLine("\n************¡Diagnostico de " + x.Nombre + " actualizado con exito!*************\n");
 			}
 		}
 		
@@ -323,8 +344,7 @@ namespace Prueba_Trabajo
 			else{
 				Console.WriteLine("\nActualmente no hay turnos disponibles.");
 			}
-		}
-		
+		}		
 		
 		public static void VerObrasSociales(Medico medico){					 //Ver todas las obras sociales con las que 
 																			// trabaja el medico
@@ -398,33 +418,9 @@ namespace Prueba_Trabajo
 				}
 			}
 			else{
-				Console.WriteLine("\nActualmente no hay turnos ocupados, por favor ingrese un turno.\n" +
-				                  "\nOpcion 7 del menu.");
+				Console.WriteLine("\nActualmente no hay turnos ocupados, por favor ingrese un turno.\n");
 			}
 		}
-		
-		/*public static ArrayList ordenarPorBurbuja( Medico medico){
-			ArrayList turnosOcupados = medico.verTurnosOcupados();
-			int n = turnosOcupados.Count;
-			int i = 0;
-			Boolean ordenado=false;
-			foreach (Turno x in turnosOcupados) {
-			
-				while((i<(n-1)) && (ordenado== false)){
-				ordenado=true;
-					for(int j=0; j<(n-1- i); j++){
-						if(x.Horario[j] > x.Horario[j+1]){ 
-							ordenado=false;
-							object swap = turnosOcupados[j]; 
-							turnosOcupados[j] = turnosOcupados[j+1]; 
-							turnosOcupados[j+1] = swap;
-						}
-					}
-				}				
-				
-			}
-			return turnosOcupados;
-		}*/
 
 		public static void MostrarOpciones(){
 			Console.WriteLine("------------------------------------------------------------" +
@@ -436,5 +432,6 @@ namespace Prueba_Trabajo
 			                  "\n-Ingrese 10 para ver las obras sociales que cubre el medico.\n-Ingrese 0 para salir\n" +
 			                 "------------------------------------------------------------");		
 		}
+		
 	}	
 }

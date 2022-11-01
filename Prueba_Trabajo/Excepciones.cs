@@ -19,4 +19,7 @@ namespace Prueba_Trabajo
 	public class ObraSocialInvalidaException : Exception{
 		
 	}
+	public class NumAfiliadoExcepton : Exception{
+		
+	}
 }
